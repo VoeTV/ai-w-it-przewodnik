@@ -1,0 +1,684 @@
+/* ==========================================================================
+   AI w IT: Praktyczny Przewodnik — Landing Page Styles
+   Mobile-first responsive design
+   Color palette: #2563eb, #1d4ed8, #1f2937, #6b7280, #ffffff, #f8fafc
+   Fonts: Inter (system), monospace
+   ========================================================================== */
+
+/* --- Reset & Base --- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  color: #1f2937;
+  background-color: #ffffff;
+  line-height: 1.6;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* --- Typography --- */
+h1, h2, h3 {
+  line-height: 1.2;
+  color: #1f2937;
+}
+
+h1 {
+  font-size: 1.75rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+}
+
+h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+p {
+  margin-bottom: 1rem;
+  color: #1f2937;
+}
+
+/* --- Layout Container --- */
+header,
+main,
+footer {
+  width: 100%;
+  max-width: 100%;
+}
+
+/* --- Header & Hero --- */
+header {
+  background-color: #f8fafc;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.hero-content {
+  text-align: center;
+  max-width: 600px;
+}
+
+.hero-content .subtitle {
+  color: #6b7280;
+  font-size: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.hero-image {
+  width: 100%;
+  max-width: 320px;
+}
+
+.hero-image img {
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Price Box --- */
+.price-box {
+  display: inline-block;
+  margin-bottom: 1.25rem;
+}
+
+.price {
+  font-size: 2rem;
+  font-weight: 800;
+  color: #2563eb;
+}
+
+/* --- CTA Button --- */
+.cta-button {
+  display: inline-block;
+  background-color: #2563eb;
+  color: #ffffff;
+  font-size: 1.125rem;
+  font-weight: 700;
+  padding: 0.875rem 2rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  text-align: center;
+  width: 100%;
+  max-width: 360px;
+}
+
+.cta-button:hover {
+  background-color: #1d4ed8;
+}
+
+.cta-button:focus-visible {
+  outline: 3px solid #2563eb;
+  outline-offset: 2px;
+}
+
+/* --- Sections (shared) --- */
+.description,
+.chapters,
+.social-proof,
+.cta-section {
+  padding: 2.5rem 1rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* --- Description --- */
+.description p {
+  color: #1f2937;
+  max-width: 720px;
+}
+
+/* --- Chapters --- */
+.chapters {
+  background-color: #f8fafc;
+  border-radius: 0;
+  max-width: 100%;
+  padding: 2.5rem 1rem;
+}
+
+.chapter-list {
+  list-style: none;
+  counter-reset: chapter;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+.chapter-list li {
+  counter-increment: chapter;
+  padding: 1rem 1.25rem;
+  background-color: #ffffff;
+  border-radius: 8px;
+  border-left: 4px solid #2563eb;
+}
+
+.chapter-list li h3 {
+  color: #1f2937;
+}
+
+.chapter-list li p {
+  color: #6b7280;
+  font-size: 0.9375rem;
+  margin-bottom: 0;
+}
+
+/* --- Social Proof --- */
+.social-proof {
+  text-align: center;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.stat-card {
+  background-color: #f8fafc;
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.stat-number {
+  display: block;
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #2563eb;
+  margin-bottom: 0.5rem;
+}
+
+.stat-description {
+  color: #6b7280;
+  font-size: 0.9375rem;
+  margin-bottom: 0;
+}
+
+/* --- CTA Section (bottom) --- */
+.cta-section {
+  text-align: center;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+
+.cta-section .price-box {
+  margin-bottom: 1.5rem;
+}
+
+.guarantee {
+  color: #6b7280;
+  font-size: 0.875rem;
+  margin-top: 1rem;
+}
+
+/* --- Footer --- */
+footer {
+  background-color: #f8fafc;
+  text-align: center;
+  padding: 1.5rem 1rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+footer nav {
+  margin-bottom: 0.75rem;
+}
+
+footer a {
+  color: #2563eb;
+  text-decoration: none;
+  font-size: 0.875rem;
+}
+
+footer a:hover {
+  text-decoration: underline;
+  color: #1d4ed8;
+}
+
+footer p {
+  color: #6b7280;
+  font-size: 0.8125rem;
+  margin-bottom: 0;
+}
+
+/* ==========================================================================
+   Tablet breakpoint (768px)
+   ========================================================================== */
+@media (min-width: 768px) {
+  h1 {
+    font-size: 2.25rem;
+  }
+
+  h2 {
+    font-size: 1.75rem;
+  }
+
+  .hero {
+    flex-direction: row;
+    padding: 3rem 2rem;
+    text-align: left;
+  }
+
+  .hero-content {
+    text-align: left;
+    flex: 1;
+  }
+
+  .hero-image {
+    flex: 0 0 280px;
+    max-width: 280px;
+  }
+
+  .cta-button {
+    width: auto;
+  }
+
+  .description,
+  .social-proof,
+  .cta-section {
+    padding: 3rem 2rem;
+  }
+
+  .chapters {
+    padding: 3rem 2rem;
+  }
+
+  .chapter-list {
+    max-width: 800px;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr 1fr;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .description p {
+    max-width: 100%;
+  }
+}
+
+/* ==========================================================================
+   Desktop breakpoint (1280px)
+   ========================================================================== */
+@media (min-width: 1280px) {
+  h1 {
+    font-size: 2.75rem;
+  }
+
+  h2 {
+    font-size: 2rem;
+  }
+
+  .hero {
+    padding: 4rem 2rem;
+    gap: 3rem;
+  }
+
+  .hero-image {
+    flex: 0 0 340px;
+    max-width: 340px;
+  }
+
+  .hero-content .subtitle {
+    font-size: 1.125rem;
+  }
+
+  .description,
+  .social-proof,
+  .cta-section {
+    padding: 4rem 2rem;
+  }
+
+  .chapters {
+    padding: 4rem 2rem;
+  }
+
+  .chapter-list {
+    max-width: 900px;
+  }
+
+  .stats-grid {
+    max-width: 900px;
+    gap: 2rem;
+  }
+
+  .stat-card {
+    padding: 2rem;
+  }
+
+  .price {
+    font-size: 2.5rem;
+  }
+}
+
+
+/* ==========================================================================
+   Auxiliary Pages — Status, Download, Error, Legal
+   ========================================================================== */
+
+/* --- Status Page (success, download, error) --- */
+.status-page {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 3rem 1rem;
+  text-align: center;
+}
+
+.status-page h1 {
+  margin-bottom: 1rem;
+}
+
+.status-page h2 {
+  font-size: 1.25rem;
+  margin-top: 2rem;
+}
+
+.status-message {
+  font-size: 1.0625rem;
+  color: #1f2937;
+  margin-bottom: 2rem;
+}
+
+.status-note {
+  color: #6b7280;
+  font-size: 0.875rem;
+  margin-top: 1.5rem;
+}
+
+/* --- Status Icons --- */
+.status-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0 auto 1.5rem;
+}
+
+.status-icon--success {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.status-icon--download {
+  background-color: #dbeafe;
+  color: #1d4ed8;
+}
+
+.status-icon--error {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+/* --- Transaction / Download Details --- */
+.transaction-details,
+.download-info,
+.error-details {
+  background-color: #f8fafc;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  text-align: left;
+}
+
+.details-list {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.5rem 1rem;
+  margin-top: 0.75rem;
+}
+
+.details-list dt {
+  font-weight: 600;
+  color: #6b7280;
+  font-size: 0.875rem;
+}
+
+.details-list dd {
+  font-weight: 600;
+  color: #1f2937;
+  font-size: 0.9375rem;
+}
+
+/* --- Badge --- */
+.badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.badge--success {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+/* --- Alert Boxes --- */
+.alert {
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-top: 2rem;
+  text-align: left;
+}
+
+.alert h2 {
+  font-size: 1.125rem;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.alert--error {
+  background-color: #fee2e2;
+  border: 1px solid #fecaca;
+}
+
+.alert--error h2 {
+  color: #991b1b;
+}
+
+.alert--warning {
+  background-color: #fef3c7;
+  border: 1px solid #fde68a;
+}
+
+.alert--warning h2 {
+  color: #92400e;
+}
+
+/* --- Error Page Actions --- */
+.error-actions {
+  text-align: left;
+  margin: 2rem 0;
+}
+
+.action-list {
+  list-style: disc;
+  padding-left: 1.25rem;
+  margin-top: 0.75rem;
+}
+
+.action-list li {
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+  font-size: 0.9375rem;
+}
+
+.payment-retry {
+  margin-top: 2rem;
+}
+
+.alternative-methods {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.method-button {
+  display: inline-block;
+  background-color: #f8fafc;
+  color: #1f2937;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.method-button:hover {
+  border-color: #2563eb;
+  background-color: #eff6ff;
+}
+
+.method-button:focus-visible {
+  outline: 3px solid #2563eb;
+  outline-offset: 2px;
+}
+
+/* --- Legal Page (privacy) --- */
+.legal-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 3rem 1rem;
+}
+
+.legal-page h1 {
+  margin-bottom: 0.5rem;
+}
+
+.legal-updated {
+  color: #6b7280;
+  font-size: 0.875rem;
+  margin-bottom: 2.5rem;
+}
+
+.legal-section {
+  margin-bottom: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.legal-section:last-child {
+  border-bottom: none;
+}
+
+.legal-section h2 {
+  font-size: 1.25rem;
+  margin-bottom: 0.75rem;
+}
+
+.legal-section ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.legal-section li {
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+.legal-address {
+  font-style: normal;
+  background-color: #f8fafc;
+  border-radius: 8px;
+  padding: 1rem 1.25rem;
+  margin: 0.75rem 0;
+  line-height: 1.8;
+}
+
+.legal-address a {
+  color: #2563eb;
+  text-decoration: none;
+}
+
+.legal-address a:hover {
+  text-decoration: underline;
+  color: #1d4ed8;
+}
+
+/* --- Footer nav with multiple links --- */
+footer nav a + a {
+  margin-left: 1.5rem;
+}
+
+/* ==========================================================================
+   Auxiliary Pages — Responsive
+   ========================================================================== */
+@media (min-width: 768px) {
+  .status-page {
+    padding: 4rem 2rem;
+  }
+
+  .legal-page {
+    padding: 4rem 2rem;
+  }
+
+  .status-icon {
+    width: 88px;
+    height: 88px;
+    font-size: 2.5rem;
+  }
+
+  .alternative-methods {
+    gap: 1rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .status-page {
+    padding: 5rem 2rem;
+  }
+
+  .legal-page {
+    padding: 5rem 2rem;
+  }
+}

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Płatność zakończona sukcesem — AI w IT</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <main>
+        <section class="status-page">
+            <div class="status-icon status-icon--success" aria-hidden="true">✓</div>
+            <h1>Płatność zakończona sukcesem!</h1>
+            <p class="status-message">Dziękujemy za zakup e-booka <strong>„AI w IT: Praktyczny Przewodnik dla Początkujących"</strong>.</p>
+
+            <div class="transaction-details">
+                <h2>Szczegóły transakcji</h2>
+                <dl class="details-list">
+                    <dt>Kwota</dt>
+                    <dd id="transaction-amount">89,99 PLN</dd>
+                    <dt>Metoda płatności</dt>
+                    <dd id="transaction-method">—</dd>
+                    <dt>Status</dt>
+                    <dd><span class="badge badge--success">Opłacone</span></dd>
+                </dl>
+            </div>
+
+            <p>Na podany adres e-mail wysłaliśmy link do pobrania e-booka. Możesz również pobrać go bezpośrednio klikając poniższy przycisk.</p>
+
+            <a href="download.html" class="cta-button" id="download-link">Pobierz e-book</a>
+
+            <p class="status-note">Link do pobrania jest ważny przez 72 godziny. Masz do dyspozycji 5 prób pobrania.</p>
+        </section>
+    </main>
+
+    <footer>
+        <nav aria-label="Stopka">
+            <a href="index.html">Strona główna</a>
+            <a href="privacy.html">Polityka prywatności</a>
+        </nav>
+        <p>&copy; 2025 AI w IT: Praktyczny Przewodnik dla Początkujących. Wszelkie prawa zastrzeżone.</p>
+    </footer>
+
+    <script>
+        (function() {
+            const params = new URLSearchParams(window.location.search);
+            const sessionId = params.get('session_id');
+            const provider = params.get('provider');
+            const order = params.get('order');
+            const method = params.get('method');
+
+            // Display payment method
+            if (provider || method) {
+                const methodNames = {
+                    'blik': 'BLIK',
+                    'revolut': 'Revolut Pay',
+                    'paypal': 'PayPal',
+                    'card': 'Karta płatnicza'
+                };
+                const methodEl = document.getElementById('transaction-method');
+                if (methodEl) {
+                    methodEl.textContent = methodNames[provider] || methodNames[method] || provider || method || '—';
+                }
+            }
+
+            // Build download link with the appropriate session/order identifier
+            const downloadLink = document.getElementById('download-link');
+            if (downloadLink) {
+                if (sessionId) {
+                    downloadLink.href = 'download.html?session_id=' + encodeURIComponent(sessionId);
+                } else if (order) {
+                    // Revolut/PayPal — pass order ID as session_id for the download-token lookup
+                    downloadLink.href = 'download.html?session_id=' + encodeURIComponent(order);
+                }
+            }
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pobierz e-book — AI w IT</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <main>
+        <section class="status-page">
+            <div class="status-icon status-icon--download" aria-hidden="true">↓</div>
+            <h1>Pobierz swój e-book</h1>
+            <p class="status-message">Twój e-book <strong>„AI w IT: Praktyczny Przewodnik dla Początkujących"</strong> jest gotowy do pobrania.</p>
+
+            <div class="download-info">
+                <h2>Informacje o pobraniu</h2>
+                <dl class="details-list">
+                    <dt>Pozostałe próby pobrania</dt>
+                    <dd id="remaining-attempts">5 z 5</dd>
+                    <dt>Link ważny do</dt>
+                    <dd id="expiry-date">—</dd>
+                    <dt>Format pliku</dt>
+                    <dd>PDF (A4)</dd>
+                </dl>
+            </div>
+
+            <a href="#" class="cta-button" id="download-button">Pobierz e-book (PDF)</a>
+
+            <p class="status-note">Po kliknięciu przycisku rozpocznie się pobieranie pliku PDF. Każde kliknięcie zużywa jedną próbę pobrania.</p>
+
+            <div id="download-error" class="alert alert--error" hidden>
+                <h2>Nie można pobrać pliku</h2>
+                <p id="download-error-message">Wystąpił tymczasowy problem z serwerem. Spróbuj ponownie — ta próba nie zostanie zaliczona.</p>
+                <button class="cta-button" onclick="retryDownload()">Spróbuj ponownie</button>
+            </div>
+
+            <div id="link-expired" class="alert alert--warning" hidden>
+                <h2>Link wygasł</h2>
+                <p>Twój link do pobrania wygasł lub wykorzystałeś wszystkie dostępne próby pobrania. Skontaktuj się z nami, aby otrzymać nowy link.</p>
+                <a href="mailto:kontakt@ai-w-it.pl" class="cta-button">Napisz do nas</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <nav aria-label="Stopka">
+            <a href="index.html">Strona główna</a>
+            <a href="privacy.html">Polityka prywatności</a>
+        </nav>
+        <p>&copy; 2025 AI w IT: Praktyczny Przewodnik dla Początkujących. Wszelkie prawa zastrzeżone.</p>
+    </footer>
+
+    <script>
+        (function() {
+            const params = new URLSearchParams(window.location.search);
+            const sessionId = params.get('session_id');
+            const token = params.get('token');
+
+            // Display expiry info (72h from now as placeholder)
+            const expiryEl = document.getElementById('expiry-date');
+            if (expiryEl) {
+                const expiry = params.get('expires');
+                if (expiry) {
+                    const expiryDate = new Date(expiry);
+                    expiryEl.textContent = expiryDate.toLocaleString('pl-PL');
+                } else {
+                    expiryEl.textContent = '72 godziny od momentu zakupu';
+                }
+            }
+
+            // Display remaining attempts
+            const attemptsEl = document.getElementById('remaining-attempts');
+            const remaining = params.get('remaining');
+            if (remaining && attemptsEl) {
+                attemptsEl.textContent = remaining + ' z 5';
+                if (parseInt(remaining, 10) <= 0) {
+                    showExpired();
+                }
+            }
+
+            // Configure download button
+            const downloadBtn = document.getElementById('download-button');
+            if (downloadBtn && token) {
+                downloadBtn.href = '/api/download/' + encodeURIComponent(token);
+            } else if (downloadBtn && sessionId) {
+                // Fetch download token from backend using session_id
+                fetchDownloadToken(sessionId);
+            }
+        })();
+
+        /**
+         * Fetches the download token from the backend using a session/order ID.
+         * Polls up to 10 times (every 2s) to allow webhook processing time.
+         */
+        function fetchDownloadToken(sessionId, attempt) {
+            attempt = attempt || 1;
+            var maxAttempts = 10;
+
+            fetch('/api/download-token?session_id=' + encodeURIComponent(sessionId))
+                .then(function(response) { return response.json(); })
+                .then(function(data) {
+                    if (data.token) {
+                        var downloadBtn = document.getElementById('download-button');
+                        if (downloadBtn) {
+                            downloadBtn.href = '/api/download/' + encodeURIComponent(data.token);
+                        }
+                        // Update remaining attempts and expiry if provided
+                        if (data.remainingAttempts !== undefined) {
+                            var attemptsEl = document.getElementById('remaining-attempts');
+                            if (attemptsEl) attemptsEl.textContent = data.remainingAttempts + ' z 5';
+                        }
+                        if (data.expiresAt) {
+                            var expiryEl = document.getElementById('expiry-date');
+                            if (expiryEl) {
+                                expiryEl.textContent = new Date(data.expiresAt).toLocaleString('pl-PL');
+                            }
+                        }
+                    } else if (attempt < maxAttempts) {
+                        // Token not ready yet — webhook may still be processing
+                        setTimeout(function() {
+                            fetchDownloadToken(sessionId, attempt + 1);
+                        }, 2000);
+                    } else {
+                        // After max attempts, show a message
+                        var errorEl = document.getElementById('download-error');
+                        var errorMsg = document.getElementById('download-error-message');
+                        if (errorEl) errorEl.hidden = false;
+                        if (errorMsg) errorMsg.textContent = 'Link do pobrania jest przygotowywany. Sprawdź swoją skrzynkę e-mail lub odśwież stronę za chwilę.';
+                    }
+                })
+                .catch(function() {
+                    if (attempt < maxAttempts) {
+                        setTimeout(function() {
+                            fetchDownloadToken(sessionId, attempt + 1);
+                        }, 2000);
+                    }
+                });
+        }
+
+        function showExpired() {
+            var downloadBtn = document.getElementById('download-button');
+            var expiredEl = document.getElementById('link-expired');
+            if (downloadBtn) downloadBtn.hidden = true;
+            if (expiredEl) expiredEl.hidden = false;
+        }
+
+        function retryDownload() {
+            var errorEl = document.getElementById('download-error');
+            if (errorEl) errorEl.hidden = true;
+            var downloadBtn = document.getElementById('download-button');
+            if (downloadBtn) downloadBtn.click();
+        }
+    </script>
+</body>
+</html>

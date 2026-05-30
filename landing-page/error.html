@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Błąd płatności — AI w IT</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <main>
+        <section class="status-page">
+            <div class="status-icon status-icon--error" aria-hidden="true">✕</div>
+            <h1>Płatność nie powiodła się</h1>
+            <p class="status-message" id="error-message">Niestety, nie udało się przetworzyć Twojej płatności. Spróbuj ponownie lub wybierz inną metodę płatności.</p>
+
+            <div class="error-details" id="error-details">
+                <h2>Szczegóły błędu</h2>
+                <p id="error-reason">Płatność została odrzucona przez dostawcę usług płatniczych.</p>
+            </div>
+
+            <div class="error-actions">
+                <h2>Co mogę zrobić?</h2>
+                <ul class="action-list">
+                    <li>Spróbuj ponownie tą samą metodą płatności</li>
+                    <li>Wybierz inną metodę płatności (BLIK, Revolut lub PayPal)</li>
+                    <li>Sprawdź, czy masz wystarczające środki na koncie</li>
+                    <li>Skontaktuj się ze swoim bankiem, jeśli problem się powtarza</li>
+                </ul>
+            </div>
+
+            <div class="payment-retry">
+                <h2>Spróbuj ponownie</h2>
+                <div class="payment-methods">
+                    <a href="index.html#payment" class="cta-button" id="retry-button">Ponów płatność</a>
+                </div>
+                <p class="status-note">Możesz również wybrać inną metodę płatności:</p>
+                <div class="alternative-methods">
+                    <button class="method-button" data-method="blik" aria-label="Zapłać przez BLIK">BLIK</button>
+                    <button class="method-button" data-method="revolut" aria-label="Zapłać przez Revolut">Revolut</button>
+                    <button class="method-button" data-method="paypal" aria-label="Zapłać przez PayPal">PayPal</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <nav aria-label="Stopka">
+            <a href="index.html">Strona główna</a>
+            <a href="privacy.html">Polityka prywatności</a>
+        </nav>
+        <p>&copy; 2025 AI w IT: Praktyczny Przewodnik dla Początkujących. Wszelkie prawa zastrzeżone.</p>
+    </footer>
+
+    <script>
+        (function() {
+            const params = new URLSearchParams(window.location.search);
+            const reason = params.get('reason');
+
+            const reasonMessages = {
+                'declined': 'Płatność została odrzucona przez bank. Sprawdź stan konta lub skontaktuj się z bankiem.',
+                'timeout': 'Upłynął czas oczekiwania na potwierdzenie płatności. Sesja płatnicza wygasła po 15 minutach.',
+                'insufficient_funds': 'Niewystarczające środki na koncie. Sprawdź saldo i spróbuj ponownie.',
+                'cancelled': 'Płatność została anulowana. Możesz spróbować ponownie w dowolnym momencie.',
+                'blik_timeout': 'Nie potwierdzono kodu BLIK w aplikacji bankowej w ciągu 120 sekund.',
+                'network_error': 'Wystąpił problem z połączeniem. Sprawdź połączenie internetowe i spróbuj ponownie.',
+                'server_error': 'Wystąpił tymczasowy problem po naszej stronie. Przepraszamy — spróbuj ponownie za chwilę.'
+            };
+
+            if (reason && reasonMessages[reason]) {
+                const reasonEl = document.getElementById('error-reason');
+                if (reasonEl) {
+                    reasonEl.textContent = reasonMessages[reason];
+                }
+            }
+
+            // Alternative payment method buttons
+            const methodButtons = document.querySelectorAll('.method-button');
+            methodButtons.forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    const method = this.getAttribute('data-method');
+                    window.location.href = 'index.html?method=' + encodeURIComponent(method) + '#payment';
+                });
+            });
+        })();
+    </script>
+</body>
+</html>
